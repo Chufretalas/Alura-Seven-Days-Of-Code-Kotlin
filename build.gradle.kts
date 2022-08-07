@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.6.10"
     id("org.jetbrains.compose") version "1.1.0"
+    kotlin("plugin.serialization") version "1.6.10"
 }
 
 group = "me.marco"
@@ -18,6 +19,11 @@ repositories {
 
 dependencies {
     implementation(compose.desktop.currentOs)
+    val ktorVersion = "2.0.3"
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 }
 
 tasks.withType<KotlinCompile> {

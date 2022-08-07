@@ -12,39 +12,40 @@ import androidx.compose.material.icons.sharp.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import extensions.formatRating
 import http.fetchImageFromUrl
 import models.Movie
-import java.net.URL
-import kotlin.math.floor
-import kotlin.math.roundToInt
 
 @Composable
 fun MovieCard(movie: Movie, MaterialTheme: MaterialTheme) {
     Box(
         modifier = Modifier.padding(8.dp)
-            .widthIn(0.dp, 200.dp)
-            .heightIn(0.dp, 500.dp)
+            .widthIn(0.dp, 220.dp)
+            .heightIn(0.dp, 280.dp)
             .clip(shape = RoundedCornerShape(3))
             .background(color = MaterialTheme.colors.onPrimary)
-            .padding(5.dp)
+            .padding(5.dp),
+        contentAlignment = Alignment.Center
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(movie.title)
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text("#${movie.rank} - ${movie.title}", fontSize = 16.sp)
             Image(
-                bitmap = fetchImageFromUrl(movie.posterUrl),
+                bitmap = fetchImageFromUrl(movie.image),
                 contentDescription = "it's morbing time",
-                modifier = Modifier.width(200.dp).padding(vertical = 5.dp)
+                modifier = Modifier.padding(vertical = 3.dp)
             )
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.width(200.dp)
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
@@ -53,7 +54,7 @@ fun MovieCard(movie: Movie, MaterialTheme: MaterialTheme) {
                         tint = Color.Yellow,
                         modifier = Modifier.size(20.dp)
                     )
-                    Text("${movie.rating.formatRating()}/10")
+                    Text("${movie.imDbRating.formatRating()}/10", fontSize = 16.sp)
                 }
                 Text(movie.year.toString())
             }

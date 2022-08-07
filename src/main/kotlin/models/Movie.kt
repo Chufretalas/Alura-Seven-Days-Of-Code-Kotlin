@@ -1,3 +1,12 @@
 package models
 
-data class Movie(val title: String, val rating: Double, val year: Int, val posterUrl: String)
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class Movie(
+    val rank: Int,
+    val title: String,
+    val year: Int,
+    val image: String,
+    val imDbRating: Double,
+)
