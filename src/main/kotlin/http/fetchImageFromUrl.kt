@@ -8,7 +8,8 @@ import java.net.HttpURLConnection
 import java.net.URL
 import javax.imageio.ImageIO
 
-fun fetchImageFromUrl(url: URL): ImageBitmap {
+fun fetchImageFromUrl(urlString: String): ImageBitmap {
+    val url = URL(urlString)
     val connection = url.openConnection() as HttpURLConnection
     connection.connect()
     val inputStream = connection.inputStream

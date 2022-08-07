@@ -12,14 +12,20 @@ import androidx.compose.material.icons.sharp.Star
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import extensions.formatRating
 import http.fetchImageFromUrl
+import models.Movie
 import java.net.URL
+import kotlin.math.floor
+import kotlin.math.roundToInt
 
 @Composable
-fun MovieCard(imageUrl: URL, MaterialTheme: MaterialTheme) {
+fun MovieCard(movie: Movie, MaterialTheme: MaterialTheme) {
     Box(
         modifier = Modifier.padding(8.dp)
             .widthIn(0.dp, 200.dp)
@@ -29,9 +35,9 @@ fun MovieCard(imageUrl: URL, MaterialTheme: MaterialTheme) {
             .padding(5.dp)
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text("Morbius")
+            Text(movie.title)
             Image(
-                bitmap = fetchImageFromUrl(imageUrl),
+                bitmap = fetchImageFromUrl(movie.posterUrl),
                 contentDescription = "it's morbing time",
                 modifier = Modifier.width(200.dp).padding(vertical = 5.dp)
             )
@@ -47,10 +53,12 @@ fun MovieCard(imageUrl: URL, MaterialTheme: MaterialTheme) {
                         tint = Color.Yellow,
                         modifier = Modifier.size(20.dp)
                     )
-                    Text("10/10")
+                    Text("${movie.rating.formatRating()}/10")
                 }
-                Text("2022")
+                Text(movie.year.toString())
             }
         }
     }
 }
+
+
