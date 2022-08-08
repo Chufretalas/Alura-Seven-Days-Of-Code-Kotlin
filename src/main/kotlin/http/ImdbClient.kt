@@ -25,7 +25,7 @@ object ImdbClient {
 
     suspend fun getTop250Movies(): List<Movie> {
         val response: ImdbTop250Data =
-            client.get("https://imdb-api.com/en/API/Top250Movies/$apiKey?utm_source=ActiveCampaign&utm_medium=email&utm_content=%237DaysOfCode+-+Kotlin+5%2F7%3A+Conectar+com+uma+API&utm_campaign=%5BAlura+%237Days+Of+Code%5D%28Kotlin%29+Dia+5%2F7%3A+Conectar+com+uma+API")
+            client.get("https://imdb-api.com/en/API/Top250Movies/$apiKey")
                 .body()
         return response.items
     }

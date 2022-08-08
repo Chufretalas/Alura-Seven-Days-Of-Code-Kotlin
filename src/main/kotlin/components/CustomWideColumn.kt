@@ -12,10 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import models.Movie
 
 @Composable
-fun CustomMovieCardColumn(contentList: List<Movie>, columnsPerRow: Int, messageWhenEmpty: String) {
+fun <T> CustomWideColumn(contentList: List<T>, columnsPerRow: Int, messageWhenEmpty: String, composable: @Composable (T) -> Unit) {
     Column(
         modifier = Modifier.verticalScroll(state = ScrollState(0), enabled = true),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -33,14 +32,14 @@ fun CustomMovieCardColumn(contentList: List<Movie>, columnsPerRow: Int, messageW
             for (newIndex in columnsPerRow..contentList.size step columnsPerRow) {
                 println(contentList.subList(oldIndex, newIndex))
                 LazyRow {
-                    items(contentList.subList(oldIndex, newIndex)) { movie ->
-                        MovieCard(movie)
+                    items(contentList.subList(oldIndex, newIndex)) { item ->
+                        composable(item)
                     }
                 }
                 if (contentList.size - 3 < newIndex) {
                     LazyRow {
-                        items(contentList.subList(newIndex, contentList.size)) { movie ->
-                            MovieCard(movie)
+                        items(contentList.subList(newIndex, contentList.size)) { item ->
+                            composable(item)
                         }
                     }
                     println(contentList.subList(newIndex, contentList.size))
@@ -49,8 +48,8 @@ fun CustomMovieCardColumn(contentList: List<Movie>, columnsPerRow: Int, messageW
             }
         } else {
             LazyRow {
-                items(contentList) { movie ->
-                    MovieCard(movie)
+                items(contentList) { item ->
+                    composable(item)
                 }
             }
         }

@@ -17,7 +17,8 @@ import kotlinx.coroutines.launch
 import models.Movie
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import components.CustomMovieCardColumn
+import components.CustomWideColumn
+import components.MovieCard
 
 @Composable
 @Preview
@@ -36,7 +37,9 @@ fun App() {
     val darkColors = darkColors(background = Color.DarkGray, onPrimary = Color(0xFF333333))
     MaterialTheme(colors = darkColors) {
         Surface(color = MaterialTheme.colors.background, modifier = Modifier.fillMaxSize()) {
-            CustomMovieCardColumn(movies, 3,"Fetching movies...")
+            CustomWideColumn(movies, 3, "Fetching movies...") { movie ->
+                MovieCard(movie)
+            }
         }
     }
 }
