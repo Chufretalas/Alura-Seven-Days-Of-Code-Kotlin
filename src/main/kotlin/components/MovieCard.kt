@@ -21,7 +21,7 @@ import http.fetchImageFromUrl
 import models.Movie
 
 @Composable
-fun MovieCard(movie: Movie, MaterialTheme: MaterialTheme) {
+fun MovieCard(movie: Movie) {
     Box(
         modifier = Modifier.padding(8.dp)
             .widthIn(0.dp, 220.dp)

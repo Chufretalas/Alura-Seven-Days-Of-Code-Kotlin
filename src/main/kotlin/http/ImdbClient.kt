@@ -8,7 +8,7 @@ import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import models.Movie
-import models.Movies
+import models.ImdbTop250Data
 
 
 object ImdbClient {
@@ -18,13 +18,13 @@ object ImdbClient {
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
             json(Json {
-                ignoreUnknownKeys = true
+                ignoreUnknownKeys = false
             })
         }
     }
 
     suspend fun getTop250Movies(): List<Movie> {
-        val response: Movies =
+        val response: ImdbTop250Data =
             client.get("https://imdb-api.com/en/API/Top250Movies/$apiKey?utm_source=ActiveCampaign&utm_medium=email&utm_content=%237DaysOfCode+-+Kotlin+5%2F7%3A+Conectar+com+uma+API&utm_campaign=%5BAlura+%237Days+Of+Code%5D%28Kotlin%29+Dia+5%2F7%3A+Conectar+com+uma+API")
                 .body()
         return response.items
