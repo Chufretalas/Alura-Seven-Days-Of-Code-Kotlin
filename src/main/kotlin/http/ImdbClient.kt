@@ -7,13 +7,12 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
-import models.Movie
 import models.ImdbTop250Data
 
 
 object ImdbClient {
 
-    private val apiKey: String = "your_key"; //TODO: put your imdb api key here
+    private const val apiKey: String = "your_key" //TODO: put your imdb api key here
 
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
@@ -23,10 +22,8 @@ object ImdbClient {
         }
     }
 
-    suspend fun getTop250Movies(): List<Movie> {
-        val response: ImdbTop250Data =
-            client.get("https://imdb-api.com/en/API/Top250Movies/$apiKey")
-                .body()
-        return response.items
+    suspend fun getTop250Movies(): ImdbTop250Data {
+        return client.get("https://imdb-api.com/en/API/Top250Movies/$apiKey")
+            .body()
     }
 }
